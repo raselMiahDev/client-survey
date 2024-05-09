@@ -10,7 +10,7 @@ const App = () => {
         <Routes>
           <Route path='/' element={<SurveyForm/>}/>
           <Route path='/success' element={<SuccessMsg/>}/>
-          <Route path='/survey-response' element={<SurveyList/>}/>
+          <Route path='/https://enamtrimsltd.netlify.app/survey-response' element={<SurveyList/>}/>
         </Routes>
       </BrowserRouter>
     </>
