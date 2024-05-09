@@ -99,14 +99,14 @@ const SurveyForm = () => {
       });
     } else {
       // Show error message or handle the case where all fields are not filled
-      console.log("Please fill in all fields");
+      ErrorToast("Something went wrong. Try again")
     }
   };
 
   return (
-    <div className="h-screen flex justify-center items-center">
+    <div className="flex justify-center items-center pt-5 md:pt-20">
       <div>
-        <div className="pb-10 md:pb-15">
+        <div className="pb-2 pl-5 md:pb-15 bg-slate-50">
           <CompanyTitle />
         </div>
 
@@ -117,7 +117,7 @@ const SurveyForm = () => {
           transition={{ duration: 0.8 }}
         >
           {currentQuestionIndex === -1 && (
-            <div>
+            <div className="py-5 md:py-10">
               <label className="text-xl">Please provide your Full name</label>
               <br />
               <input
@@ -144,6 +144,7 @@ const SurveyForm = () => {
               initial={{ opacity: 0, x: 100 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8 }}
+              className="md:py-10 py-5"
             >
               <label className="text-sx md:text-xl">
                 Please provide your Factory name
@@ -179,11 +180,13 @@ const SurveyForm = () => {
                 initial={{ opacity: 0, x: 100 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.8 }}
-                className=" md:w-96 p-5"
+                className=" md:w-96 p-5 md:py-10 py-5"
               >
-                <h2 className="text-xl">
+                <motion.h2                 initial={{ opacity: 0, x: 100 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.8 }} className="text-xl">
                   {questions[currentQuestionIndex - 1].question}
-                </h2>
+                </motion.h2>
                 <ul>
                   {questions[currentQuestionIndex - 1].options.map(
                     (option, index) => (
@@ -193,7 +196,7 @@ const SurveyForm = () => {
                         onClick={() => handleOptionSelect(option)}
                       >
                         <div className="flex gap-3 items-center">
-                          <span className="bg-green-400 p-3 text-slate-100">
+                          <span className="bg-green-400 p-2 md:p-3 text-slate-100">
                             ✔
                           </span>
                           {option}
@@ -221,7 +224,7 @@ const SurveyForm = () => {
               initial={{ opacity: 0, x: 100 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8 }}
-              className="md:w-96 px-5"
+              className="md:w-96 p-5 md:py-10 py-5"
             >
               <label className="text-xl">
                 Any suggestion or advice how we could improve our service in

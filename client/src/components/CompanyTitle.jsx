@@ -1,4 +1,4 @@
-import Logo from "../assets/enam-logo.jpeg"
+import Logo from "../assets/enam-logo.png"
 
 const CompanyTitle = () => {
     return (
