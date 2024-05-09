@@ -91,7 +91,7 @@ const SurveyForm = () => {
         rate_overall: answers[questions[3].question],
         suggestion: comments,
       };
-      await axios.post("http://localhost:5000/servey", postBody).then((res) => {
+      await axios.post("https://client-survey.onrender.com/servey", postBody).then((res) => {
         if (res.status == "201") {
           SuccessToast(res.data.message);
           navigate("/success");
@@ -99,7 +99,7 @@ const SurveyForm = () => {
       });
     } else {
       // Show error message or handle the case where all fields are not filled
-      ErrorToast("Something went wrong. Try again")
+      ErrorToast("Something went wrong. Try again");
     }
   };
 
@@ -117,14 +117,16 @@ const SurveyForm = () => {
           transition={{ duration: 0.8 }}
         >
           {currentQuestionIndex === -1 && (
-            <div className="py-5 md:py-10">
-              <label className="text-xl">Please provide your Full name</label>
+            <div className="py-16 md:py-10 md:w-[350px] md:h-[400px]">
+              <label className="text-lg md:text-xl">
+                Please provide your Full name
+              </label>
               <br />
               <input
                 type="text"
                 required
                 value={name}
-                className="border md:w-96 p-2 w-full mt-2 rounded-lg focus:outline-green-200 text-lg"
+                className="border w-full p-2 mt-2 rounded-lg focus:outline-green-200 text-lg"
                 placeholder="Full Name"
                 onChange={(e) => setName(e.target.value)}
               />
@@ -144,9 +146,9 @@ const SurveyForm = () => {
               initial={{ opacity: 0, x: 100 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8 }}
-              className="md:py-10 py-5"
+              className="py-16 md:w-[350px] md:h-[400px]"
             >
-              <label className="text-sx md:text-xl">
+              <label className="text-lg md:text-xl">
                 Please provide your Factory name
               </label>
               <br />
@@ -180,11 +182,14 @@ const SurveyForm = () => {
                 initial={{ opacity: 0, x: 100 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.8 }}
-                className=" md:w-96 p-5 md:py-10 py-5"
+                className="p-5 md:py-10 py-5 md:w-[350px] md:h-[400px]"
               >
-                <motion.h2                 initial={{ opacity: 0, x: 100 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.8 }} className="text-xl">
+                <motion.h2
+                  initial={{ opacity: 0, x: 100 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.8 }}
+                  className="text-xl"
+                >
                   {questions[currentQuestionIndex - 1].question}
                 </motion.h2>
                 <ul>
@@ -224,7 +229,7 @@ const SurveyForm = () => {
               initial={{ opacity: 0, x: 100 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8 }}
-              className="md:w-96 p-5 md:py-10 py-5"
+              className="md:w-[350px] md:h-[400px] p-5 md:py-10 py-5"
             >
               <label className="text-xl">
                 Any suggestion or advice how we could improve our service in

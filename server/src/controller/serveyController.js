@@ -32,7 +32,7 @@ exports.CreateServey = async (req, res) => {
 //read servey
 exports.GetServeyResponse = async (req, res) => {
   try {
-    const servey = await ServeyModel.find({});
+    const servey = await ServeyModel.find({}).sort({ createdAt: -1 });
     if (servey) {
       res.status(200).json({ message: "Success get servey response", servey });
     }
