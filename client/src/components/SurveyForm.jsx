@@ -1,6 +1,6 @@
 // SurveyForm.js
-import React, { useState } from "react";
-import { IoIosArrowBack } from "react-icons/io";
+import React, { useState, useRef, useEffect } from "react";
+import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import { motion } from "framer-motion";
 import CompanyTitle from "./CompanyTitle";
 import axios from "axios";
@@ -11,16 +11,16 @@ const SurveyForm = () => {
   const questions = [
     {
       question:
-        "1. How did you get response from our CS representative timely manner ?",
+        "3. How did you get response from our CS representative timely manner ?",
       options: ["Always", "Often", "Sometimes", "Never"],
     },
     {
-      question: "2. Did you get goods delivery within expected timeline ?",
+      question: "4. Did you get goods delivery within expected timeline ?",
       options: ["Always", "Often", "Sometimes", "Never"],
     },
     {
       question:
-        "3. How would you rate your experience with our Customer Service Team ?",
+        "5. How would you rate your experience with our Customer Service Team ?",
       options: [
         "Satisfied",
         "Not Much Satisfied",
@@ -29,7 +29,7 @@ const SurveyForm = () => {
       ],
     },
     {
-      question: "4. How do you rate overall service from Enam Trims Ltd ?",
+      question: "6. How do you rate overall service from Enam Trims Ltd ?",
       options: ["Very Good", "Good", "Satisfactory", "Poor"],
     },
   ];
@@ -40,6 +40,11 @@ const SurveyForm = () => {
   const [answers, setAnswers] = useState({});
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(-1); // Start at -1 to indicate user name input
   const navigate = useNavigate();
+  const inputRef = useRef(null);
+
+  useEffect(() => {
+    inputRef.current.focus();
+  }, []);
 
   const handleNameSubmit = () => {
     // Check if the name field is not empty
@@ -91,12 +96,14 @@ const SurveyForm = () => {
         rate_overall: answers[questions[3].question],
         suggestion: comments,
       };
-      await axios.post("https://client-survey.onrender.com/servey", postBody).then((res) => {
-        if (res.status == "201") {
-          SuccessToast(res.data.message);
-          navigate("/success");
-        }
-      });
+      await axios
+        .post("https://client-survey.onrender.com/servey", postBody)
+        .then((res) => {
+          if (res.status == "201") {
+            SuccessToast(res.data.message);
+            navigate("/success");
+          }
+        });
     } else {
       // Show error message or handle the case where all fields are not filled
       ErrorToast("Something went wrong. Try again");
@@ -104,34 +111,34 @@ const SurveyForm = () => {
   };
 
   return (
-    <div className="flex justify-center items-center pt-5 md:pt-20">
-      <div>
-        <div className="pb-2 pl-5 md:pb-15 bg-slate-50">
-          <CompanyTitle />
-        </div>
+    <div>
+      <div className="pb-2 pl-5 md:pb-15 bg-[#a7c6ac] flex justify-center items-center p-5">
+        <CompanyTitle />
+      </div>
 
-        {/* survey content  start*/}
+      {/* survey content  start*/}
+      <div className="flex justify-center pt-52 md:pt-32">
         <motion.div
           initial={{ opacity: 0, x: 100 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.8 }}
         >
           {currentQuestionIndex === -1 && (
-            <div className="py-16 md:py-10 md:w-[350px] md:h-[400px]">
-              <label className="text-lg md:text-xl">
-                Please provide your Full name
-              </label>
+            <div className="md:w-[600px]">
+              <div className="text-lg md:text-xl">
+                <p>1. Please provide your Full name</p>
+              </div>
               <br />
               <input
                 type="text"
-                required
+                ref={inputRef}
                 value={name}
                 className="border w-full p-2 mt-2 rounded-lg focus:outline-green-200 text-lg"
                 placeholder="Full Name"
                 onChange={(e) => setName(e.target.value)}
               />
 
-              <div className="pt-10 ">
+              <div className="pt-10 md:pt-20">
                 <button
                   className="bg-green-600 hover:bg-green-700 text-white block w-full p-2 rounded-lg  text-xl"
                   onClick={handleNameSubmit}
@@ -146,16 +153,17 @@ const SurveyForm = () => {
               initial={{ opacity: 0, x: 100 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8 }}
-              className="py-16 md:w-[350px] md:h-[400px]"
+              className="px-2 md:w-[600px]"
             >
-              <label className="text-lg md:text-xl">
-                Please provide your Factory name
-              </label>
+              <div className="text-lg md:text-xl">
+                <p>2. Please provide your Factory name</p>
+              </div>
               <br />
               <input
                 placeholder="Your Factory Name"
                 type="text"
-                className="border w-full md:w-96 p-2 mt-2 rounded-lg focus:outline-green-200 text-lg"
+                ref={inputRef}
+                className="border w-full p-2 mt-2 rounded-lg focus:outline-green-200 text-lg"
                 value={companyName}
                 onChange={(e) => setCompanyName(e.target.value)}
               />
@@ -182,13 +190,13 @@ const SurveyForm = () => {
                 initial={{ opacity: 0, x: 100 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.8 }}
-                className="p-5 md:py-10 py-5 md:w-[350px] md:h-[400px]"
+                className="p-5 md:py-10 py-5 w-full md:w-[600px] md:h-[500px]"
               >
                 <motion.h2
                   initial={{ opacity: 0, x: 100 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ duration: 0.8 }}
-                  className="text-xl"
+                  className="text-lg md:text-xl"
                 >
                   {questions[currentQuestionIndex - 1].question}
                 </motion.h2>
@@ -229,15 +237,18 @@ const SurveyForm = () => {
               initial={{ opacity: 0, x: 100 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8 }}
-              className="md:w-[350px] md:h-[400px] p-5 md:py-10 py-5"
+              className="md:w-[600px] w-96"
             >
-              <label className="text-xl">
-                Any suggestion or advice how we could improve our service in
-                future?
-              </label>{" "}
+              <div className="text-lg md:text-xl">
+                <p>
+                  7. Any suggestion or advice how we could improve our service
+                  in future?
+                </p>
+              </div>
               <div className="relative w-full min-w-[200px]">
                 <textarea
                   value={comments}
+                  ref={inputRef}
                   onChange={(e) => setComments(e.target.value)}
                   className="peer h-full min-h-[100px] w-full resize-none rounded-[7px] border  px-3 py-2.5 font-sans text-lg font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-green-200"
                 ></textarea>
@@ -253,8 +264,8 @@ const SurveyForm = () => {
             </motion.div>
           )}
         </motion.div>
-        {/* survey content end  */}
       </div>
+      {/* survey content end  */}
     </div>
   );
 };
