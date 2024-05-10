@@ -112,12 +112,12 @@ const SurveyForm = () => {
 
   return (
     <div>
-      <div className="pb-2 pl-5 md:pb-15 bg-[#a7c6ac] flex justify-center items-center p-5">
+      <div className=" bg-[#a7c6ac] flex justify-center items-center p-1 md:p-5">
         <CompanyTitle />
       </div>
 
       {/* survey content  start*/}
-      <div className="flex justify-center pt-52 md:pt-32">
+      <div className="flex justify-center pt-20 md:pt-32">
         <motion.div
           initial={{ opacity: 0, x: 100 }}
           animate={{ opacity: 1, x: 0 }}
@@ -237,7 +237,7 @@ const SurveyForm = () => {
               initial={{ opacity: 0, x: 100 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8 }}
-              className="md:w-[600px] w-96"
+              className="px-4 md:px-0 md:w-[600px]"
             >
               <div className="text-lg md:text-xl">
                 <p>
@@ -245,7 +245,7 @@ const SurveyForm = () => {
                   in future?
                 </p>
               </div>
-              <div className="relative w-full min-w-[200px]">
+              <div className="relative">
                 <textarea
                   value={comments}
                   ref={inputRef}
